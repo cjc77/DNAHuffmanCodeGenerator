@@ -5,6 +5,7 @@ class DNAHuffmanCode:
         self.bin_DNA = ''
         self.DNA_weight = {'A': 0, 'T': 0, 'G': 0, 'C': 0}
         self.bin_code = {'A': '00', 'T': '01', 'G': '10', 'C': '11'}
+        self.naive_code = {'A': '00', 'T': '01', 'G': '10', 'C': '11'}
 
     def __str__(self):
         char_weight = "DNA character weights: "
@@ -53,6 +54,10 @@ class DNAHuffmanCode:
             self.bin_code[DNA_weight_map[i][0]] = bin_string
 
     def convert_dna_to_bin_dna(self):
+        """
+        Create new encoding for DNA characters based on results of
+        create_bin_code.
+        """
         size = len(self.DNA)
         for i in range(size):
             if self.DNA[i] == 'A':
@@ -64,11 +69,31 @@ class DNAHuffmanCode:
             elif self.DNA[i] == 'C':
                 self.bin_DNA += self.bin_code['C']
 
+    def verify_encoding_len(self):
+        """
+        Verify that the length of the encoded string matches the theoretical
+        length of the encoded string.
+        """
+        # Find length the encoded DNA string SHOULD BE IN THEORY
+        theoretical_encoding_len = 0
+        for dna_char, bin_char in self.bin_code.items():
+            chars_used = len(bin_char) * self.DNA_weight[dna_char]
+            theoretical_encoding_len += chars_used
+        # Find the length of the ACTUAL ENCODED STRING
+        actual_encoding_len = len(self.bin_DNA)
+        # Determine if these lengths are the same
+        if theoretical_encoding_len == actual_encoding_len:
+            return True
+        return False
 
-
-
-
-
+    def bits_saved(self):
+        """
+        Check how many bits were saved due to this encoding vs. using the default
+        encoding: 'A' -> "00", 'T' -> "01", 'G' -> "10", 'C' -> "11"
+        """
+        naive_encoding_len = 2 * len(self.DNA)
+        huffman_encoding_len = len(self.bin_DNA)
+        return naive_encoding_len - huffman_encoding_len
 
 
 
