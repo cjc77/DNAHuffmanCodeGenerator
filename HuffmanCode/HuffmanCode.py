@@ -94,9 +94,3 @@ class DNAHuffmanCode:
         naive_encoding_len = 2 * len(self.DNA)
         huffman_encoding_len = len(self.bin_DNA)
         return naive_encoding_len - huffman_encoding_len
-
-
-
-
-
-#

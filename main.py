@@ -20,6 +20,7 @@ def main():
     saved = my_code.bits_saved()
     print("Encoded accurately: ", lengths_match, '\n', "Bits saved: ", saved, sep='')
 
+    # Bits used with simple 2 bits per character encoding
     naive_case = len(my_code.DNA) * 2
     # If you are using more bits with the huffman encoding than the naive encoding
     if saved < naive_case:
