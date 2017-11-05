@@ -43,10 +43,10 @@ class DNAHuffmanCode:
         # go through the weight map and assign ('1' * i) + '0' to each char
         # except the least frequent, which will be '1' * (size - 1)
 
-        # Assign '0' to the most common
-        # Assign '1' to 2nd most common
-        # Assign '01' to 3rd most common
-        # Assign '11' to 4th most common
+        # Assign '1' to the most common
+        # Assign '01' to 2nd most common
+        # Assign '001' to 3rd most common
+        # Assign '000' to 4th most common
         bin_string = ''
         for i in range(size):
             # If most common
