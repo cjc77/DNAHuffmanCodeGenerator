@@ -36,21 +36,31 @@ class DNAHuffmanCode:
         # Create list to hold DNA chars and associated weights
         DNA_weight_map = [[key, val] for key, val in self.DNA_weight.items()]
         # Sort this list by: most common character -> least common character
+        # Ex: [['G', 12820], ['A', 12334], ...]
         DNA_weight_map.sort(key=lambda x: x[1], reverse=True)
+        # Size should be 4
         size = len(DNA_weight_map)
         # go through the weight map and assign ('1' * i) + '0' to each char
         # except the least frequent, which will be '1' * (size - 1)
+
+        # Assign '0' to the most common
+        # Assign '1' to 2nd most common
+        # Assign '01' to 3rd most common
+        # Assign '11' to 4th most common
         bin_string = ''
         for i in range(size):
             # If most common
-            if(i < 1):
-                bin_string = '0'
-            # If not most or least common
-            elif i < size - 1:
-                bin_string = '1' + bin_string
+            if i == 0:
+                bin_string = '1'
+            # If 2nd most common
+            elif i == 1:
+                bin_string = '01'
+            # If 3rd most common
+            elif i == 2:
+                bin_string = '001'
             # If least common
             else:
-                bin_string = '1' * (size - 1)
+                bin_string = '000'
             self.bin_code[DNA_weight_map[i][0]] = bin_string
 
     def convert_dna_to_bin_dna(self):
@@ -76,6 +86,7 @@ class DNAHuffmanCode:
         """
         # Find length the encoded DNA string SHOULD BE IN THEORY
         theoretical_encoding_len = 0
+        # Ex: if 'A' == 1 and "weight of A" is 10, chars_used is 10
         for dna_char, bin_char in self.bin_code.items():
             chars_used = len(bin_char) * self.DNA_weight[dna_char]
             theoretical_encoding_len += chars_used
@@ -86,11 +97,14 @@ class DNAHuffmanCode:
             return True
         return False
 
-    def bits_saved(self):
+    def huffman_vs_naive(self):
         """
         Check how many bits were saved due to this encoding vs. using the default
         encoding: 'A' -> "00", 'T' -> "01", 'G' -> "10", 'C' -> "11"
         """
+        # 2 * len(self.DNA) because 2 bits for each original character
         naive_encoding_len = 2 * len(self.DNA)
         huffman_encoding_len = len(self.bin_DNA)
-        return naive_encoding_len - huffman_encoding_len
+        # return naive_encoding_len - huffman_encoding_len
+        return {"Naive": naive_encoding_len, "Huffman": huffman_encoding_len,
+                "Difference": huffman_encoding_len - naive_encoding_len}

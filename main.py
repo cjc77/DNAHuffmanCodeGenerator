@@ -17,20 +17,17 @@ def main():
     my_code.convert_dna_to_bin_dna()
     write_out(my_code.bin_DNA)
     lengths_match = my_code.verify_encoding_len()
-    saved = my_code.bits_saved()
-    print("Encoded accurately: ", lengths_match, '\n', "Bits saved: ", saved, sep='')
+    comparison = my_code.huffman_vs_naive()
+    percent_diff = ((comparison['Huffman'] - comparison['Naive']) /
+                    (comparison['Huffman'] + comparison['Naive'])) * 100
+    print("Huffman vs. Naive ('-' means Huffman more efficient)")
+    print("Difference: ", str(comparison["Difference"]) + " bits")
+    print("Percent Difference", percent_diff)
+    if percent_diff > 0:
+        print("Huffman Less Efficient")
+    else:
+        print("Huffman More Efficient")
 
-    # Bits used with simple 2 bits per character encoding
-    naive_case = len(my_code.DNA) * 2
-    # If you are using more bits with the huffman encoding than the naive encoding
-    if saved < naive_case:
-        print("Less efficient than naive encoding.")
-    # If you are saving less than 5%
-    elif saved < (naive_case * .05):
-        print("Naive encoding is sufficient.")
-    # If you are saving at least 5%
-    elif saved <= (naive_case * .05):
-        print("Huffman encoding is recommended.")
 
 
 if __name__ == '__main__':
