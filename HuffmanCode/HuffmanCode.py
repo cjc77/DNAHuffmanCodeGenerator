@@ -10,7 +10,8 @@ class DNAHuffmanCode:
     def __str__(self):
         char_weight = "DNA character weights: "
         char_code = "DNA character codes: "
-        print_str = char_weight + str(self.DNA_weight) + '\n' + char_code + str(self.bin_code)
+        print_str = char_weight + str(self.DNA_weight) + '\n' + char_code + \
+                    str(self.bin_code)
         return print_str
 
     def create_weight(self):
@@ -99,8 +100,8 @@ class DNAHuffmanCode:
 
     def huffman_vs_naive(self):
         """
-        Check how many bits were saved due to this encoding vs. using the default
-        encoding: 'A' -> "00", 'T' -> "01", 'G' -> "10", 'C' -> "11"
+        Check how many bits were saved due to this encoding vs. using the
+        default encoding: 'A' -> "00", 'T' -> "01", 'G' -> "10", 'C' -> "11"
         """
         # 2 * len(self.DNA) because 2 bits for each original character
         naive_encoding_len = 2 * len(self.DNA)
